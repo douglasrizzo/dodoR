@@ -1,0 +1,9 @@
+language: java
+
+preinstall:
+  - sudo apt-add-repository "http://cran.rstudio.com/bin/linux/ubuntu trusty" -y
+install:
+  - sudo apt-get -y --force-yes install r-base-dev
+
+script:
+  - make all
