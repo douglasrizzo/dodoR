@@ -1,4 +1,5 @@
 language: r
+sudo: true
 
 script:
   - make all
