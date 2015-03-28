@@ -1,10 +1,10 @@
 Package: dodoR
 Type: Package
-Title: What the package does (short line)
+Title: Gera relatórios de aplicações da TRI
 Version: 1.0
 Date: 2015-03-25
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Depends: R (>= 3.1.0), ltm
+Author: Douglas De Rizzo Meneghetti
+Maintainer: Douglas De Rizzo Meneghetti <douglasrizzo@fei.edu.br>
+Depends: R (>= 3.1.0), ltm, mirt
 Description: More about what it does (maybe more than one line)
-License: What license is it under?
+License: GPL

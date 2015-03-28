@@ -1,5 +1,5 @@
-calcula.parametros <-
-function(respostas, saida)
+relatorio.ltm <-
+function(respostas, saida, type = 'latent.trait', IRT.param = T, max.iter = 10)
 {
   nItens=ncol(respostas)
   colnames(respostas) = paste0('item ', 1:nItens)
@@ -10,11 +10,13 @@ function(respostas, saida)
   
   teste = NULL
   resumo = NULL
-  while(is.null(resumo)){
+  iter = 1
+  while(is.null(resumo) || iter != max.iter){
   tryCatch(
   {
-    teste = tpm(respostas, type="latent.trait", IRT.param = TRUE,
-                start.val = 'random', max.guessing = 1, na.action = na.exclude)
+    iter++
+    teste = tpm(respostas, type = type, IRT.param = IRT.param,
+                start.val = 'random', na.action = na.exclude)
     resumo = summary(teste)
   },
   error = function(e)
@@ -90,4 +92,12 @@ function(respostas, saida)
               sep = ',', row.names = F)
   write.table(zs, file = paste0(saida, 'zs.csv'),
               sep = ',', row.names = F)
+}
+
+relatorio.mirt <- function(respostas, saida, itemtype='3PL', method = 'EM', optimizer = 'NR', verbose = T)
+{
+  teste = mirt(respostas, model = 1, itemtype = itemtype, SE = T, SE.type = 'BL', method = method, optimizer = optimizer, verbose = verbose)
+  summary(teste)
+  #TODO erros, infits, outfits, curvas de resposta e informação e CSVs dos parâmetros, erros... o que der
+  return(teste)
 }
