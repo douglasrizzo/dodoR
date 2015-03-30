@@ -1,5 +1,5 @@
-\name{calcula.parametros}
-\alias{calcula.parametros}
+\name{relatorio.ltm}
+\alias{relatorio.ltm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Gera relatórios, CSVs e gráficos de acordo com o ML3 da TRI do pacote LTM
@@ -8,7 +8,7 @@ Gera relatórios, CSVs e gráficos de acordo com o ML3 da TRI do pacote LTM
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-calcula.parametros(respostas, saida)
+relatorio.ltm(respostas, saida, type = "latent.trait", IRT.param = T, max.iter = 10)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +17,15 @@ calcula.parametros(respostas, saida)
 }
   \item{saida}{
 %%     ~~Describe \code{saida} here~~
+}
+  \item{type}{
+%%     ~~Describe \code{type} here~~
+}
+  \item{IRT.param}{
+%%     ~~Describe \code{IRT.param} here~~
+}
+  \item{max.iter}{
+%%     ~~Describe \code{max.iter} here~~
 }
 }
 \details{
@@ -50,7 +59,8 @@ calcula.parametros(respostas, saida)
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (respostas, saida) 
+function (respostas, saida, type = "latent.trait", IRT.param = T, 
+    max.iter = 10) 
 {
     nItens = ncol(respostas)
     colnames(respostas) = paste0("item ", 1:nItens)
@@ -58,10 +68,11 @@ function (respostas, saida)
     print(paste0("calculando par<U+00E2>metros ", Sys.time()))
     teste = NULL
     resumo = NULL
-    while (is.null(resumo)) {
+    iter = 1
+    while (is.null(resumo) || iter != max.iter) {
         tryCatch({
-            teste = tpm(respostas, type = "latent.trait", IRT.param = TRUE, 
-                start.val = "random", max.guessing = 1, na.action = na.exclude)
+            iter + +teste = tpm(respostas, type = type, IRT.param = IRT.param, 
+                start.val = "random", na.action = na.exclude)
             resumo = summary(teste)
         }, error = function(e) {
             print(e$message)

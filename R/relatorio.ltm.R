@@ -93,11 +93,3 @@ function(respostas, saida, type = 'latent.trait', IRT.param = T, max.iter = 10)
   write.table(zs, file = paste0(saida, 'zs.csv'),
               sep = ',', row.names = F)
 }
-
-relatorio.mirt <- function(respostas, saida, itemtype='3PL', method = 'EM', optimizer = 'NR', verbose = T)
-{
-  teste = mirt(respostas, model = 1, itemtype = itemtype, SE = T, SE.type = 'BL', method = method, optimizer = optimizer, verbose = verbose)
-  summary(teste)
-  #TODO erros, infits, outfits, curvas de resposta e informação e CSVs dos parâmetros, erros... o que der
-  return(teste)
-}
