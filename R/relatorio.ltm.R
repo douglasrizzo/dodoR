@@ -43,41 +43,36 @@ function(respostas, saida, type = 'latent.trait', IRT.param = T, max.iter = 10)
  dir.create(saida, showWarnings = FALSE, recursive = TRUE)
   
  for(i in 1:nItens){
-   pdf(file=paste0(saida, 'cci_', i, '.pdf'))
    plot(teste, type = 'ICC', items = i,
         xlab = 'Habilidade', ylab = 'Probabilidade',
         main = paste0('CCI - item ', i))
-   dev.off()
-   pdf(file=paste0(saida, 'cii_', i, '.pdf'))
+   dev.copy2pdf(file=paste0(saida, 'cci_', i, '.pdf'))
+   
    plot(teste, type = 'IIC', items = i, annot = T,
         xlab = 'Habilidade', ylab = 'Informação',
         main = paste0('Curva de Informação - item ', i))
-   dev.off()
+   dev.copy2pdf(file=paste0(saida, 'cii_', i, '.pdf'))
  }
   
-  pdf(file=paste0(saida, 'cci_teste.pdf'))
   plot(teste, type = 'IIC', items = 0, annot = T,
        xlab = 'Habilidade', ylab = 'Informação',
        main = 'Curva de informação do teste')
-  dev.off()
+  dev.copy2pdf(file=paste0(saida, 'cci_teste.pdf'))
   
   print('Parâmetros:')
   print(summary(parametros))
   
-  pdf(file=paste0(saida, 'a.pdf'))
-  plot(density(parametros[,1]),main = 'Densidade de a',
+  plot(density(parametros[,1]), main = 'Densidade de a',
        ylab = 'Densidade', xlab = paste('N =',dim(parametros)[1]))
-  dev.off()
+  dev.copy2pdf(file=paste0(saida, 'a.pdf'))
   
-  pdf(file=paste0(saida, 'b.pdf'))
-  plot(density(parametros[,2]),main = 'Densidade de b',
+  plot(density(parametros[,2]), main = 'Densidade de b',
        ylab = 'Densidade', xlab = paste('N =',dim(parametros)[1]))
-  dev.off()
+  dev.copy2pdf(file=paste0(saida, 'b.pdf'))
   
-  pdf(file=paste0(saida, 'c.pdf'))
-  plot(density(parametros[,3]),main = 'Densidade de c',
+  plot(density(parametros[,3]), main = 'Densidade de c',
        ylab = 'Densidade', xlab = paste('N =',dim(parametros)[1]))
-  dev.off()
+  dev.copy2pdf(file=paste0(saida, 'c.pdf'))
   
   print('Erros:')
   print(summary(erros))

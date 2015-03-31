@@ -9,7 +9,7 @@ This function generates a full report of an IRT run of the \code{mirt} package. 
 }
 \usage{
 relatorio.mirt(respostas, saida, itemtype = "3PL",
-               method = "EM", optimizer = "NR", verbose = T)
+               method = "EM", optimizer = "NR", verbose = F)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,7 +29,7 @@ Estimation method. This parameter is passed directly to \code{mirt}. Default is 
 Numerical approximation method used for optimizing convergence of estimation. This parameter is passed directly to \code{mirt}. Default is 'NR', the Newton-Raphson method. For more options, consult the \code{mirt} manual.
 }
   \item{verbose}{
-Defines how much output the algorithm must give. This parameter is passed directly to \code{mirt}. Default is TRUE. For more options, consult the \code{mirt} manual.
+Defines how much output the algorithm must give. This parameter is passed directly to \code{mirt}. Default is FALSE. For more options, consult the \code{mirt} manual.
 }
 }
 \details{
