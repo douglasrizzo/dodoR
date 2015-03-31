@@ -16,12 +16,12 @@ function(respostas, saida, itemtype='3PL', method = 'EM', optimizer = 'NR', verb
   for(i in 1:nrow(testplots))
   {
     pdf(file = paste0(saida, testplots[i,1],'.pdf'))
-    plot(teste, type = testplots[i,3], main = testplots[i,2])
+    print(plot(teste, type = testplots[i,3], main = testplots[i,2]))
     dev.off()
   }
   
   filenames = c('info', 'se', 'trace', 'score', 'infoSE', 'infotrace')
-  charttitles = c('Curva de informação do item', 'Erro padrão do item', 'Trace do item', 'Curva de qtd. de acertos do item', 'Curvas de informação/erro padrão do item', 'Curvas de informação/trace do item')
+  charttitles = c('Curva de informação do item', 'Erro padrão do item', 'Curva característica do item', 'Curva de qtd. de acertos do item', 'Curvas de informação/erro padrão do item', 'Curvas de informação/característica do item')
   charttypes = c('info','SE', 'trace', 'score', 'infoSE', 'infotrace')
   
   itemplots = data.frame(filenames, charttitles, charttypes, stringsAsFactors = F)
@@ -29,9 +29,9 @@ function(respostas, saida, itemtype='3PL', method = 'EM', optimizer = 'NR', verb
   for(i in 1:ncol(respostas))
   {
     for(ii in 1:nrow(itemplots)){
-      pdf(file = paste0(saida, testplots[i,1],'.pdf'))
-      plot(teste, type = testplots[i,3], main = testplots[i,2])
-      itemplot(teste, i, type = itemplots[i,3], main = paste(itemplots[i,2], '-', i))
+      print(paste0(saida, itemplots[ii, 1], '_', i, '.pdf'))
+      pdf(file = paste0(saida, itemplots[ii, 1], '_', i, '.pdf'))
+      print(itemplot(teste, i, type = itemplots[ii, 3], main = paste(itemplots[ii, 2], '-', i)))
       dev.off()
     }
   }
@@ -39,6 +39,7 @@ function(respostas, saida, itemtype='3PL', method = 'EM', optimizer = 'NR', verb
   write.table(pars$items[,1:3], file = paste0(saida, 'parametros.csv'), sep = ',', row.names = F)
   
   fits = itemfit(teste, X2 = T, method = 'ML')
-  write.table(fits[,2:8], file = paste0(saida, 'medidas.csv'), sep = ',', row.names = T)
+  
+  write.table(fits[,2:8], file = paste0(saida, 'medidas.csv'), sep = ',', row.names = F)
   return(teste)
 }

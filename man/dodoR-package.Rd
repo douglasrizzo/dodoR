@@ -3,12 +3,10 @@
 \alias{dodoR}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+R functions I used for my master's thesis
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+This is a personal package I created in order to automate the generation of reports, charts and CSV files concerning the use of Item Response Theory in a binary matrix of responses.
 }
 \details{
 \tabular{ll}{
@@ -18,22 +16,18 @@ Version: \tab 1.0\cr
 Date: \tab 2015-03-30\cr
 License: \tab What license is it under?\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-Who wrote it
+Douglas De Rizzo Meneghetti
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Douglas De Rizzo Meneghetti <douglasrizzo@fei.edu.br>
 }
 \references{
-~~ Literature or other references for background information ~~
+
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+\code{\link[mirt]{mirt}}
 }
 \examples{
 %~~ simple examples of the most important functions ~~

@@ -2,50 +2,47 @@
 \alias{relatorio.mirt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Gera relatórios, CSVs e gráficos de uma execução da TRI do pacote mirt
+Generate full IRT report based on \code{mirt} package
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function generates a full report of an IRT run of the \code{mirt} package. It plots all possible charts for the test and each of the items; saves item parameters and item fit statistics (like Zhs and X2) into \code{csv} files; and can alternatively be used in conjunction with Sweave to generate a PDF report, since it prints the summaries of all relevant variables during a run.
 }
 \usage{
-relatorio.mirt(respostas, saida, itemtype = "3PL", method = "EM", optimizer = "NR", verbose = T)
+relatorio.mirt(respostas, saida, itemtype = "3PL",
+               method = "EM", optimizer = "NR", verbose = T)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{respostas}{
-%%     ~~Describe \code{respostas} here~~
+A binary \code{data.frame} in which rows represent examinees and columns represent items.
 }
   \item{saida}{
-%%     ~~Describe \code{saida} here~~
+A directory to which all files will be saved. If the directory does not exist, it will be recursively created.
 }
   \item{itemtype}{
-%%     ~~Describe \code{itemtype} here~~
+Item types to be used during parameter estimation. This parameter is passed directly to \code{mirt}. Default is '3PL', the three-parameter logistic model. For more options, consult the \code{mirt} manual.
 }
   \item{method}{
-%%     ~~Describe \code{method} here~~
+Estimation method. This parameter is passed directly to \code{mirt}. Default is 'EM', the Expectation-Maximization algorithm. For more options, consult the \code{mirt} manual.
 }
   \item{optimizer}{
-%%     ~~Describe \code{optimizer} here~~
+Numerical approximation method used for optimizing convergence of estimation. This parameter is passed directly to \code{mirt}. Default is 'NR', the Newton-Raphson method. For more options, consult the \code{mirt} manual.
 }
   \item{verbose}{
-%%     ~~Describe \code{verbose} here~~
+Defines how much output the algorithm must give. This parameter is passed directly to \code{mirt}. Default is TRUE. For more options, consult the \code{mirt} manual.
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+function returns an object of class SingleGroupClass (SingleGroupClass-class)
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Douglas De Rizzo Meneghetti
 }
 \note{
 %%  ~~further notes~~
@@ -57,61 +54,9 @@ relatorio.mirt(respostas, saida, itemtype = "3PL", method = "EM", optimizer = "N
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (respostas, saida, itemtype = "3PL", method = "EM", 
-    optimizer = "NR", verbose = T) 
-{
-    teste = mirt(respostas, model = 1, itemtype = itemtype, SE = T, 
-        SE.type = "BL", method = method, optimizer = optimizer, 
-        verbose = verbose)
-    print(teste)
-    summary(teste)
-    pars = print(coef(teste, simplify = T))
-    print(coef(teste, simplify = F))
-    filenames = c("test_score", "test_info", "test_SE", "test_infoSE")
-    charttitles = c("Curva do teste", "Curva de informa<U+00E7><U+00E3>o do teste", 
-        "Curva de erro padr<U+00E3>o do teste", "Curvas de informa<U+00E7><U+00E3>o/erro padr<U+00E3>o do teste")
-    charttypes = c("score", "info", "SE", "infoSE")
-    testplots = data.frame(filenames, charttitles, charttypes, 
-        stringsAsFactors = F)
-    for (i in 1:nrow(testplots)) {
-        pdf(file = paste0(saida, testplots[i, 1], ".pdf"))
-        plot(teste, type = testplots[i, 3], main = testplots[i, 
-            2])
-        dev.off()
-    }
-    filenames = c("info", "se", "trace", "score", "infoSE", "infotrace")
-    charttitles = c("Curva de informa<U+00E7><U+00E3>o do item", 
-        "Erro padr<U+00E3>o do item", "Trace do item", "Curva de qtd. de acertos do item", 
-        "Curvas de informa<U+00E7><U+00E3>o/erro padr<U+00E3>o do item", 
-        "Curvas de informa<U+00E7><U+00E3>o/trace do item")
-    charttypes = c("info", "SE", "trace", "score", "infoSE", 
-        "infotrace")
-    itemplots = data.frame(filenames, charttitles, charttypes, 
-        stringsAsFactors = F)
-    for (i in 1:ncol(respostas)) {
-        for (ii in 1:nrow(itemplots)) {
-            pdf(file = paste0(saida, testplots[i, 1], ".pdf"))
-            plot(teste, type = testplots[i, 3], main = testplots[i, 
-                2])
-            itemplot(teste, i, type = itemplots[i, 3], main = paste(itemplots[i, 
-                2], "-", i))
-            dev.off()
-        }
-    }
-    write.table(pars$items[, 1:3], file = paste0(saida, "parametros.csv"), 
-        sep = ",", row.names = F)
-    fits = itemfit(teste, X2 = T, method = "ML")
-    write.table(fits[, 2:8], file = paste0(saida, "medidas.csv"), 
-        sep = ",", row.names = T)
-    return(teste)
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ IRT }
+\keyword{ report }% __ONLY ONE__ keyword per line
