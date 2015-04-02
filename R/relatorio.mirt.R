@@ -15,7 +15,7 @@ function(respostas, saida, itemtype='3PL', method = 'EM', optimizer = 'NR', verb
   for(i in 1:nrow(testplots))
   {
     print(plot(teste, type = testplots[i,3], main = testplots[i,2]))
-    dev.copy2pdf(file = paste0(saida, testplots[i,1],'.pdf'))
+    dev.copy2pdf(file = paste0(saida, testplots[i,1], '.pdf'))
   }
   
   pars = coef(teste, simplify = T)
@@ -34,9 +34,9 @@ function(respostas, saida, itemtype='3PL', method = 'EM', optimizer = 'NR', verb
   
   print(pars)
   
-  filenames = c('info', 'se', 'trace', 'score', 'infoSE', 'infotrace')
-  charttitles = c('Curva de informação do item', 'Erro padrão do item', 'Curva característica do item', 'Curva de qtd. de acertos do item', 'Curvas de informação/erro padrão do item', 'Curvas de informação/característica do item')
-  charttypes = c('info','SE', 'trace', 'score', 'infoSE', 'infotrace')
+  filenames = c('trace', 'info', 'se','score', 'infoSE', 'infotrace')
+  charttitles = c('Curva característica do item', 'Curva de informação do item', 'Erro padrão do item', 'Curva de qtd. de acertos do item', 'Curvas de informação/erro padrão do item', 'Curvas de informação/característica do item')
+  charttypes = c('trace', 'info', 'SE', 'score', 'infoSE', 'infotrace')
   
   itemplots = data.frame(filenames, charttitles, charttypes, stringsAsFactors = F)
   
