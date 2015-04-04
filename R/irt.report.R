@@ -3,10 +3,12 @@ function(answers, out, keys = NULL, itemtype='3PL', method = 'EM', optimizer = '
 {
   dir.create(out, showWarnings = FALSE, recursive = TRUE)
   
-  if(keys == NULL)
-    teste = mirt(answers, model = 1, itemtype = itemtype, SE = T, SE.type = 'BL', method = method, optimizer = optimizer, verbose = verbose)
-  else
+  teste = NULL
+  
+  if(is.null(keys))
   {
+    teste = mirt(answers, model = 1, itemtype = itemtype, SE = T, SE.type = 'BL', method = method, optimizer = optimizer, verbose = verbose)
+  } else {
     teste = mirt(key2binary(answers, keys), model = 1, itemtype = itemtype, SE = T, SE.type = 'BL', method = method, optimizer = optimizer, verbose = verbose)
     nominal = mirt(answers, model = 1, itemtype = 'nominal', verbose = F)
   }
@@ -15,12 +17,12 @@ function(answers, out, keys = NULL, itemtype='3PL', method = 'EM', optimizer = '
   summary(teste)
   superpars = coef(teste, simplify = F)
   
-  testplots=c()
+  testplots = c()
   
   if(test_score) testplots = rbind(testplots, c('test_score', 'Curva do teste', 'score'))
   if(test_info) testplots = rbind(testplots, c('test_info', 'Curva de informação do teste', 'info'))
-  if(test_SE) testplots = rbind(testplots, c('test_SE', 'Curva de erro padrão do teste', 'Curvas de informação/erro padrão do teste'))
-  if(test_infoSE) testplots = rbind(testplots, c('test_infoSE', 'Curva do teste', 'infoSE'))
+  if(test_SE) testplots = rbind(testplots, c('test_SE', 'Curva de erro padrão do teste', 'SE'))
+  if(test_infoSE) testplots = rbind(testplots, c('test_infoSE', 'Curvas de informação/erro padrão do teste', 'infoSE'))
   
   for(i in 1:nrow(testplots))
   {
@@ -31,15 +33,15 @@ function(answers, out, keys = NULL, itemtype='3PL', method = 'EM', optimizer = '
   pars = coef(teste, simplify = T)
   
   print(plot(density(pars$items[,1]), main = 'Densidade de a',
-       ylab = 'Densidade', xlab = paste('N =', dim(pars$items[,1])[1])))
+       ylab = 'Densidade', xlab = paste('N =', dim(pars$items)[1])))
   dev.copy2pdf(file=paste0(out, 'a.pdf'))
   
   print(plot(density(pars$items[,2]), main = 'Densidade de b',
-       ylab = 'Densidade', xlab = paste('N =', dim(pars$items[,2])[1])))
+       ylab = 'Densidade', xlab = paste('N =', dim(pars$items)[1])))
   dev.copy2pdf(file=paste0(out, 'b.pdf'))
   
   print(plot(density(pars$items[,3]), main = 'Densidade de c',
-       ylab = 'Densidade', xlab = paste('N =', dim(pars$items[,3])[1])))
+       ylab = 'Densidade', xlab = paste('N =', dim(pars$items)[1])))
   dev.copy2pdf(file=paste0(out, 'c.pdf'))
   
   print(pars)
@@ -48,15 +50,15 @@ function(answers, out, keys = NULL, itemtype='3PL', method = 'EM', optimizer = '
   
   if(trace) itemplots = rbind(itemplots, c('trace', 'Curva característica do item'))
   if(info) itemplots = rbind(itemplots, c('info', 'Curva de informação do item'))
-  if(se) itemplots = rbind(itemplots, c('se', 'Erro padrão do item'))
+  if(se) itemplots = rbind(itemplots, c('SE', 'Erro padrão do item'))
   if(score) itemplots = rbind(itemplots, c('score', 'Curva de qtd. de acertos do item'))
   if(infoSE) itemplots = rbind(itemplots, c('infoSE', 'Curvas de informação/erro padrão do item'))  
   if(infotrace) itemplots = rbind(itemplots, c('infotrace', 'Curvas de informação/característica do item'))
   
-  for(i in 1:ncol(respostas))
+  for(i in 1:ncol(answers))
   {
     print(superpars[i])
-    if(keys != NULL)
+    if(!is.null(keys))
     {
       print(itemplot(nominal, i, type = 'trace', main = paste('Análise das alternativas do item', '-', i)))
       dev.copy2pdf(file = paste0(out, 'distractor', '_', i, '.pdf'))
