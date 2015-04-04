@@ -9,7 +9,7 @@ The keys for the brazilian National High School Exam languages and codes - engli
 }
 \usage{data("lci_keys")}
 \format{
-  A data frame with 1 row and 45 cells, each cell corresponding to the key of the test.
+A data frame with 1 row and 45 cells, each cell containing the key to the corresponding. Values are numerical, ranging from 1 to 5.
 }
 \details{
 The Brazilian National High School Exam (Exame Nacional do Esnsino Médio, Enem) is a facultative summative educational evaluation available for every Brazilian citizen that has finished, or is in the last year of high school. The test allows students to enroll in higher degree educational courses.

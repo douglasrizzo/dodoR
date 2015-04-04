@@ -9,7 +9,7 @@ Contains 50000 samples of the brazilian National High School Exam. This dataset 
 }
 \usage{data("ch")}
 \format{
-  A data frame with 50000 observations on the following 45 variables. Rows represent examinees and columns represent items. Each question has a possible answer of 'A', 'B', 'C', 'D' and 'E' (in character form).
+  A data frame with 50000 observations on the following 45 variables. Rows represent examinees and columns represent items. Each question has a possible answer of 1, 2, 3, 4 or 5, in numerical form.
 }
 \details{
 The Brazilian National High School Exam (Exame Nacional do Esnsino Médio, Enem) is a facultative summative educational evaluation available for every Brazilian citizen that has finished, or is in the last year of high school. The test allows students to enroll in higher degree educational courses.
