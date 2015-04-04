@@ -1,2 +1,2 @@
 exportPattern("^[[:alpha:]]+")
-import(ltm, mirt, latticeExtra)
+import(mirt, latticeExtra)
