@@ -11,20 +11,19 @@
 
 <table width="100%" summary="page for sample.rows {dodoR}"><tr><td>sample.rows {dodoR}</td><td align="right">R Documentation</td></tr></table>
 
-<h2>
-Random Samples of Rows
-</h2>
+<h2>Random Samples of Rows</h2>
 
 <h3>Description</h3>
 
-<p><code>sample.rows</code> takes a sample of the specified size from the rows of x using either with or without replacement
+<p><code>sample.rows</code> takes a sample of the specified size from the rows of x
+using either with or without replacement
 </p>
 
 
 <h3>Usage</h3>
 
 <pre>
-sample.rows(x, size, replace = FALSE, prob = NULL)
+sample.rows(x, size, replace = F, prob = NULL)
 </pre>
 
 
@@ -33,40 +32,36 @@ sample.rows(x, size, replace = FALSE, prob = NULL)
 <table summary="R argblock">
 <tr valign="top"><td><code>x</code></td>
 <td>
-
-<p>Either a vector of one or more elements from which to choose, or a positive integer.
-</p>
+<p>Either a vector of one or more elements from which to choose, or a
+positive integer.</p>
 </td></tr>
 <tr valign="top"><td><code>size</code></td>
 <td>
-
-<p>a non-negative integer giving the number of items to choose.
-</p>
+<p>a non-negative integer giving the number of items to choose.</p>
 </td></tr>
 <tr valign="top"><td><code>replace</code></td>
 <td>
-
-<p>Should sampling be with replacement?
-</p>
+<p>Should sampling be with replacement?</p>
 </td></tr>
 <tr valign="top"><td><code>prob</code></td>
 <td>
-
-<p>A vector of probability weights for obtaining the elements of the vector being sampled.
-</p>
+<p>A vector of probability weights for obtaining the elements of
+the vector being sampled.</p>
 </td></tr>
 </table>
 
 
 <h3>Details</h3>
 
-<p>It basically does the same as <code>sample</code>, but returns row samples instead of column samples.
+<p>It basically does the same as <code>sample</code>, but returns row samples instead
+of column samples.
 </p>
 
 
 <h3>Value</h3>
 
-<p>A <code>data.frame</code> containing <code>size</code> rows extracted of <code>x</code>.
+<p>A <code>data.frame</code> containing <code>size</code> rows extracted of
+<code>x</code>.
 </p>
 
 
@@ -89,11 +84,11 @@ sample.rows(x = cars, size = 5)
 </code></pre>
 
 <pre><code>##    speed dist
-## 32    18   42
-## 1      4    2
-## 43    20   64
-## 22    14   60
-## 17    13   34
+## 21    14   36
+## 23    14   80
+## 48    24   93
+## 8     10   26
+## 29    17   32
 </code></pre>
 
 

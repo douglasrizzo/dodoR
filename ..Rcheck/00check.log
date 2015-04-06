@@ -1,0 +1,194 @@
+* using log directory ‘/home/douglas/Desktop/dodoR/..Rcheck’
+* using R version 3.1.3 (2015-03-09)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘./DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘dodoR’ version ‘1.0’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... WARNING
+Found the following executable files:
+  .git/objects/00/98cbfcaa866f08ab1231080655e4cdfd9df196
+  .git/objects/01/aad34cf9608494017cd4368390bfdb45bb149c
+  .git/objects/0a/f9a9d5254d6584fec037030394932193dea215
+  .git/objects/0c/b0fcdbe0c7d1969554e7cb724449bbfdf309b6
+  .git/objects/0e/4345d94cc8feea1ae0012cef128c82815a3b98
+  .git/objects/13/43f532e8f398f4149ebc2fc9e65108272e79e7
+  .git/objects/13/8b4804a4284e455203076d41f1f554547d5b15
+  .git/objects/17/1800fa78be19b12d40f44cc06ffac98a6bec8d
+  .git/objects/18/e632c74d68b1d71ec3402b260676861f5860f1
+  .git/objects/1a/9ae1b1e5852f4365db6c0cac22b5e6de9e4475
+  .git/objects/1a/b77fbcc1ce9d40d9a5ee4b03dd0164c36c3126
+  .git/objects/1b/7afb54e5eb5a684b11672d0894fc35eed64717
+  .git/objects/1c/718eb12367e48a83d8d019925f1673c16fcc05
+  .git/objects/1d/3a139e158c2f0dc9419554cb0e1b49ad1bd0f7
+  .git/objects/21/a4da087e1c026c953a49de88caea1247cd1f1b
+  .git/objects/23/da9a99b03bc0e0aa292c782642cdb14c486ea3
+  .git/objects/23/db68f2d55902273d8cdb9fadf04cb06ffd1945
+  .git/objects/24/3f5932a44043f69b5da36eeb5e11e98fa4c1dc
+  .git/objects/25/d62fee4f4806291a30db2f37d0fad5ac18bbf7
+  .git/objects/26/939ddc4c1bf21216817325aafa18eb01749b7b
+  .git/objects/27/08218e502856baa4ea6f40f8f110da6f86de9e
+  .git/objects/29/4fb28202d82fbff743fd22bbf39a7fd944d3d5
+  .git/objects/31/6d1757e84fc329112b54f7bc37ba9b8b0c2e31
+  .git/objects/34/af5a5e9e9c1a1061f0eb408837b2720ad185db
+  .git/objects/37/5c55cec30a112c807a006b47cc2b0e31208c9e
+  .git/objects/3c/7f27ef4d64287b44ba510fcbf72a53f57fc976
+  .git/objects/3c/ff9d96c22c365514a23436fc9307fdddc1cbdf
+  .git/objects/3d/d60c0cafb5caa6f71f217876b63ac3d62afdd4
+  .git/objects/3f/83497d51c6e87e5d2bc2b9bc31dc7ef7635b3c
+  .git/objects/40/b94ab6ee46efc8a17794146463ce2c33ef30d7
+  .git/objects/43/687a497609a7f4dc3c2573d0ce23c9216ec5d3
+  .git/objects/43/fcea481ec4956fa85ae639ec83a5a3769c1428
+  .git/objects/45/2b670a4981e1a79a3eb00210db2cf5a5f10a67
+  .git/objects/46/eaa3404b4eabc185a4f510e5f0c6e4d75c5d3a
+  .git/objects/48/fe2042cbc42fa3af08472c719f216a10e6bf06
+  .git/objects/4b/5901e5119ba25f5661fba014408721ee7396e8
+  .git/objects/4b/90680c3f6c08d62e0f44511a8faf4dfd500e5d
+  .git/objects/4d/19f6de78dbbf1a9d09d6626a295b180d58fb78
+  .git/objects/53/aa1ed158b8fbf9d8d1d18e586a1c6212dced0a
+  .git/objects/58/4703956c1930e9735486301495f813c3517e3d
+  .git/objects/59/4ad276824a91caf8bfedfe0ab539809bf623e4
+  .git/objects/5a/1340efd1125d2c84c43e5edca53836ca2f48bd
+  .git/objects/5a/76f505b1fd691f4a09bdebbf03cf77bdfcd666
+  .git/objects/5b/4b96f58106f32e5d134ea494ea0017708b694f
+  .git/objects/5d/2ed69bfef2c78b626ba209ef0362d161a1f324
+  .git/objects/5f/1e2c19abcfea14d6c395655d06005829f3b397
+  .git/objects/5f/21bf7aff3884a6b45fda998b0315c549a2d41e
+  .git/objects/64/cdbcb9b16e3f4b5b36e02b33a7a13bb2241c27
+  .git/objects/6a/57e7d434ae8a17790a138f311cfacc9a151157
+  .git/objects/6a/e0cbdcb0c7738f56bfa987ac183bbe115f762e
+  .git/objects/6b/fb0c92013e0e218f0d9074520b7b3d8bcb1d80
+  .git/objects/71/8baa5d461621bb9b62be8786a3ea73af042eeb
+  .git/objects/75/8ee03622efe983be42a18ebdbce1fc4f5859a7
+  .git/objects/75/d4902cad4c0a3c8e921812ebf020e36b2e78ba
+  .git/objects/7b/179f550f797dad0ac3e90db8d12fea41604105
+  .git/objects/7d/13531e0865e2db94f269a299befd7185bb9541
+  .git/objects/7e/1535f60b0becd4f9157e186f6c180233be298c
+  .git/objects/83/7b26391add992638b57bfd08861b5e9e83e0bd
+  .git/objects/86/42a366df7bf145f8978256c10c555bde0c7c49
+  .git/objects/86/5e0580df3536a24ededa2b293988a7fb5b183f
+  .git/objects/86/d8e77523df1edf4c0c087965940b7a96e404dd
+  .git/objects/8e/cf4c0f8350c4bdcc4d7e94e24f1031ac252d47
+  .git/objects/8f/8d9625d36f7e1a9fa0c0e08994cab461ee75a5
+  .git/objects/90/2eb89713946b8572079edeaf74c60e7887767d
+  .git/objects/91/114bf2f2bba5e0c5252e75018da19b869776f1
+  .git/objects/92/e317030c32e5fa1fc1a38de402eae55fd54191
+  .git/objects/93/296cf32ea7ba90b3a818ec60b042caaa7a092a
+  .git/objects/93/ba4f1aa1eee0fc9dc29f96359c1c8d17275015
+  .git/objects/95/7b5cd822457000dd54df7e9ead05a5ff1e0a12
+  .git/objects/96/6e851c10032b5e3f81a62973ad75774d421c35
+  .git/objects/96/ca3373c1fca74bd007f352c871b1f65cd7f22f
+  .git/objects/98/b520ab70093d81a258a21ec0e2be6652bc1489
+  .git/objects/9f/6973d13eebd0e5bfdd36ba464bdd3de4bff663
+  .git/objects/b4/71bed0e2b2dbc6155093af7ded91616e059436
+  .git/objects/b4/a4134c54a4edad6ed63f11aaaf5203da78963a
+  .git/objects/b7/2713ec82a73ca5c8d4597b935c8a814b22eb3c
+  .git/objects/bd/c713e02a30a209fb70674ed587b6160cd30634
+  .git/objects/c5/f8675f5e877bb1493f65772d06a11f3c0c215c
+  .git/objects/c6/252943f10f9ad279e0f790f812ea8cec1fee04
+  .git/objects/c6/486ff2955438c877cabcf9a3f396f13b051dab
+  .git/objects/c7/5d46ed317bf96f6fe933b39020016fc833cb1d
+  .git/objects/c9/8036755964a82989d2640415b20645a565d232
+  .git/objects/d0/11021c255b66fa4420ad991440d1c8431b9f0c
+  .git/objects/d7/5f824ec6278db24891505b14ab3d915514dba7
+  .git/objects/d7/d0b1eb4b19abb72294c2f0c4201aca32004af2
+  .git/objects/d8/a83e440b1f75150524590ab1dd1d3f6810ff54
+  .git/objects/da/7a79a59c0f2a2d9c1e635e3d7b4d2b01630f3e
+  .git/objects/df/bec78194bbfde33d53f1f936605eb9c1a8843d
+  .git/objects/e1/cf9845cafc07f194e23e7d192db791304a4ca3
+  .git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+  .git/objects/e7/0c283e3443dca4a50de46c948f75d7dd9d8af8
+  .git/objects/e7/6f60238f9562453528c908ba985af0fe16fd56
+  .git/objects/eb/5d88b3ed8f3ab7ef620c3dea09bf70e2f682f5
+  .git/objects/ee/ff3f4d73c2362a59b936441230e2d8e1887081
+  .git/objects/f7/ecc7b0401a597b3f7bf826432fdd86fdec232c
+Source packages should not contain undeclared executable files.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .Rhistory
+  .gitignore
+  .travis.yml
+  R/.Rhistory
+  man/.Rhistory
+  ..Rcheck
+  .Rproj.user
+  .git
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘dodoR’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Found the following directory with the name of a check directory:
+  ./..Rcheck
+Most likely, these were included erroneously.
+* checking R files for non-ASCII characters ... WARNING
+Found the following file with non-ASCII characters:
+  irt.report.R
+Portable packages must use only ASCII characters in their R code,
+except perhaps in comments.
+Use \uxxxx escapes for other characters.
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+Packages in Depends field not imported from:
+  ‘latticeExtra’ ‘mirt’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+irt.report: no visible global function definition for ‘mirt’
+irt.report: no visible global function definition for ‘key2binary’
+irt.report: no visible global function definition for ‘itemplot’
+irt.report: no visible global function definition for ‘itemfit’
+* checking Rd files ... NOTE
+prepare_Rd: irt.report.Rd:96-98: Dropping empty section \details
+prepare_Rd: irt.report.Rd:99-101: Dropping empty section \note
+prepare_Rd: irt.report.Rd:105-107: Dropping empty section \references
+prepare_Rd: irt.report.Rd:108-110: Dropping empty section \seealso
+prepare_Rd: sample.rows.Rd:32-34: Dropping empty section \note
+prepare_Rd: sample.rows.Rd:45-47: Dropping empty section \seealso
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... WARNING
+  
+  Note: significantly better compression could be obtained
+        by using R CMD build --resave-data
+          old_size new_size compress
+  ch.rda     983Kb    650Kb       xz
+  cn.rda     989Kb    657Kb       xz
+  lce.rda    968Kb    639Kb       xz
+  lci.rda    922Kb    608Kb       xz
+  mt.rda     976Kb    648Kb       xz
+* checking line endings in Makefiles ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking examples ... OK
+* checking PDF version of manual ... OK
+* DONE
+WARNING: There were 4 warnings.
+NOTE: There were 4 notes.
