@@ -1,5 +1,6 @@
 NAME  = dodoR
 SHELL = bash
+DATE = `date +'%y.%m.%d %H:%M:%S'`
 all: check build install clean
 install:
 	R CMD INSTALL .
@@ -9,9 +10,13 @@ check:
 	R CMD check .
 clean:
 	rm -r ..Rcheck dodoR_1.0.tar.gz
-knitdocs:
-	rm -rf html/
+docs:
+	rm -rf ~/Desktop/html/
+	Rscript -e "library('roxygen2');roxygenize('.', roclets=c('rd', 'namespace'))"
 	make install
-	Rscript -e "library('knitr',quietly=TRUE);knit_rd('dodoR')"
-	mkdir html
-	mv *.html R.css html/
+	git checkout gh-pages
+	Rscript -e "library('knitr',quietly=TRUE);knit_rd('$(NAME)')"
+	git add .
+	git commit -m "Atualização da documentação em $(DATE)"
+	git push origin gh-pages
+	git checkout master
