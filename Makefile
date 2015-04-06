@@ -1,6 +1,6 @@
 NAME  = dodoR
 SHELL = bash
-all: checl build install clean
+all: check build install clean
 install:
 	R CMD INSTALL .
 build:
