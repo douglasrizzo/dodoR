@@ -12,7 +12,6 @@ clean:
 	rm -r ..Rcheck dodoR_1.0.tar.gz
 docs:
 	Rscript -e "library('roxygen2');roxygenize('.')"
-	R CMD Rd2pdf --batch --title=dodoR --output=$(NAME).pdf --force .
 	make install
 	git checkout gh-pages
 	Rscript -e "library('knitr',quietly=TRUE);knit_rd('$(NAME)')"
@@ -20,3 +19,5 @@ docs:
 	git commit -m "Atualização da documentação em $(DATE)"
 	git push origin gh-pages
 	git checkout master
+	R CMD Rd2pdf --batch --title=dodoR --output=$(NAME).pdf --force .
+
