@@ -80,13 +80,16 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
     out.itemplots = paste0(out, "itemplots/")
   if (is.null(out.testplots)) 
     out.testplots = paste0(out, "testplots/")
-  if (is.null(out.testplots)) 
-    out.testplots = paste0(out, "densities/")
+  if (is.null(out.densities)) 
+    out.densities = paste0(out, "densities/")
+  
   dir.create(out.stats, showWarnings = FALSE, recursive = TRUE)
   dir.create(out.itemplots, showWarnings = FALSE, recursive = TRUE)
   dir.create(out.testplots, showWarnings = FALSE, recursive = TRUE)
   dir.create(out.densities, showWarnings = FALSE, recursive = TRUE)
+  
   teste = NULL
+  
   if (is.null(keys)) {
     teste = mirt(answers, model = 1, itemtype = itemtype, 
                  SE = T, SE.type = "BL", method = method, optimizer = optimizer, 
@@ -99,9 +102,13 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
     nominal = mirt(answers, model = 1, itemtype = "nominal", 
                    verbose = F)
   }
+  
   print(teste)
   summary(teste)
   superpars = coef(teste, simplify = F)
+  pars = coef(teste, simplify = T)
+  only.pars = pars$items[,1:3]
+  
   testplots = c()
   if (test_score) 
     testplots = rbind(testplots, c("test_score", "Curva do teste", 
@@ -121,7 +128,7 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
     dev.copy2pdf(file = paste0(out.testplots, testplots[i, 
                                                         1], ".pdf"))
   }
-  pars = coef(teste, simplify = T)
+  
   print(plot(density(pars$items[, 1]), main = "Densidade de a", 
              ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
   dev.copy2pdf(file = paste0(out.testplots, "a.pdf"))
@@ -131,8 +138,11 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
   print(plot(density(pars$items[, 3]), main = "Densidade de c", 
              ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
   dev.copy2pdf(file = paste0(out.testplots, "c.pdf"))
+  
   print(pars)
+  
   itemplots = c()
+  
   if (trace) 
     itemplots = rbind(itemplots, c("trace", "Curva característica do item"))
   if (info) 
@@ -145,8 +155,10 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
     itemplots = rbind(itemplots, c("infoSE", "Curvas de informação/erro padrão do item"))
   if (infotrace) 
     itemplots = rbind(itemplots, c("infotrace", "Curvas de informação/característica do item"))
+  
   for (i in 1:ncol(answers)) {
     print(superpars[i])
+    pars.string = paste('a =', only.pars[i, 1],'; b =', only.pars[i, 2], '; c =', only.pars[i, 3])
     if (!is.null(keys)) {
       print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", 
                                                               "-", i)))
@@ -155,15 +167,17 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
     }
     for (ii in 1:nrow(itemplots)) {
       print(itemplot(teste, i, type = itemplots[ii, 1], 
-                     main = paste(itemplots[ii, 2], "-", i)))
+                     main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
       dev.copy2pdf(file = paste0(out.itemplots, itemplots[ii, 
                                                           1], "_", i, ".pdf"))
     }
   }
-  write.table(pars$items[, 1:3], file = paste0(out.stats, 
+  
+  write.table(only.pars, file = paste0(out.stats, 
                                                "parametros.csv"), sep = ",", row.names = F)
   fits = itemfit(teste, X2 = T, method = "ML")
   write.table(fits[, 2:8], file = paste0(out.stats, "medidas.csv"), 
               sep = ",", row.names = F)
+  
   return(teste)
 }
