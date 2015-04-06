@@ -8,10 +8,12 @@ Generate full IRT report based on \code{mirt} package
 This function generates a full report of an IRT run of the \code{mirt} package. It plots all possible charts for the test and each of the items; saves item parameters and item fit statistics (like Zhs and X2) into \code{csv} files; and can alternatively be used in conjunction with Sweave to generate a PDF report, since it prints the summaries of all relevant variables during a run.
 }
 \usage{
-irt.report(answers, out, keys = NULL, itemtype='3PL', method = 'EM',
-           optimizer = 'NR', verbose = F, test_score = T, test_info = T,
-           test_SE = T, test_infoSE = T, trace = T, info = T, se = T,
-           score = T, infoSE = T, infotrace = T)
+irt.report(answers, out, out.stats = NULL, out.itemplots = NULL,
+           out.testplots = NULL, out.densities = NULL, keys = NULL,
+           itemtype='3PL', method = 'EM', optimizer = 'NR',
+           verbose = F, test_score = T, test_info = T, test_SE = T,
+           test_infoSE = T, trace = T, info = T, se = T, score = T,
+           infoSE = T, infotrace = T)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,6 +22,18 @@ A \code{data.frame} containing examinees answers to items. Rows must represent e
 }
   \item{out}{
 A directory to which all files will be saved. If the directory does not exist, it will be recursively created.
+}
+\item{out.stats}{
+The directory to which CSV files will be saved. If the directory does not exist, it will be recursively created. if out.stats = NULL, it will be a subfolder of out.
+}
+\item{out.itemplots}{
+The directory to which item plots will be saved. If the directory does not exist, it will be recursively created. if out.itemplots = NULL, it will be a subfolder of out.
+}
+\item{out.testplots	}{
+The directory to which test plots will be saved. If the directory does not exist, it will be recursively created. if out.testplots = NULL, it will be a subfolder of out.
+}
+\item{out.densities}{
+The directory to which parameter density plots will be saved. If the directory does not exist, it will be recursively created. if out.densities = NULL, it will be a subfolder of out.
 }
   \item{keys}{
 A vector containing the keys of the test, that is, the right answers for each item in the correct order.

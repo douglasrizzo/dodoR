@@ -8,7 +8,7 @@ Random Samples of Rows
 \code{sample.rows} takes a sample of the specified size from the rows of x using either with or without replacement
 }
 \usage{
-sample(x, size, replace = FALSE, prob = NULL)
+sample.rows(x, size, replace = FALSE, prob = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
