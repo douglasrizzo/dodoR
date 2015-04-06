@@ -11,8 +11,8 @@ check:
 clean:
 	rm -r ..Rcheck dodoR_1.0.tar.gz
 docs:
-	rm -rf ~/Desktop/html/
-	Rscript -e "library('roxygen2');roxygenize('.', roclets=c('rd', 'namespace'))"
+	Rscript -e "library('roxygen2');roxygenize('.')"
+	R CMD Rd2pdf --batch --title=dodoR --output=$(NAME).pdf --force .
 	make install
 	git checkout gh-pages
 	Rscript -e "library('knitr',quietly=TRUE);knit_rd('$(NAME)')"
