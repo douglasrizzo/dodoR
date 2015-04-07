@@ -66,6 +66,7 @@
 #' @references %% ~put references to the literature/web site here ~
 #' @keywords IRT report
 # @examples
+#' @export irt.report
 
 irt.report <-
 function  (answers, out, out.stats = NULL, out.itemplots = NULL, 
@@ -123,21 +124,33 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
     testplots = rbind(testplots, c("test_infoSE", "Curvas de informação/erro padrão do teste", 
                                    "infoSE"))
   for (i in 1:nrow(testplots)) {
+    pdf(file = paste0(out.testplots, testplots[i, 
+                                                        1], ".pdf"), width = 8)
     print(plot(teste, type = testplots[i, 3], main = testplots[i, 
                                                                2]))
-    dev.copy2pdf(file = paste0(out.testplots, testplots[i, 
-                                                        1], ".pdf"))
+    dev.off()
   }
   
   print(plot(density(pars$items[, 1]), main = "Densidade de a", 
              ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  dev.copy2pdf(file = paste0(out.testplots, "a.pdf"))
+  pdf(file = paste0(out.testplots, "a.pdf"), width = 8)
+  print(plot(density(pars$items[, 1]), main = "Densidade de a", 
+             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
+  dev.off()
+  
   print(plot(density(pars$items[, 2]), main = "Densidade de b", 
              ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  dev.copy2pdf(file = paste0(out.testplots, "b.pdf"))
+  pdf(file = paste0(out.testplots, "b.pdf"), width = 8)
+  print(plot(density(pars$items[, 2]), main = "Densidade de b", 
+             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
+  dev.off()
+  
   print(plot(density(pars$items[, 3]), main = "Densidade de c", 
              ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  dev.copy2pdf(file = paste0(out.testplots, "c.pdf"))
+  pdf(file = paste0(out.testplots, "c.pdf"), width = 8)
+  print(plot(density(pars$items[, 3]), main = "Densidade de c", 
+             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
+  dev.off()
   
   print(pars)
   
@@ -160,16 +173,20 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
     print(superpars[i])
     pars.string = paste('a =', only.pars[i, 1],'; b =', only.pars[i, 2], '; c =', only.pars[i, 3])
     if (!is.null(keys)) {
-      print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", 
-                                                              "-", i)))
-      dev.copy2pdf(file = paste0(out.itemplots, "distractor", 
-                                 "_", i, ".pdf"))
+      print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
+      pdf(file = paste0(out.itemplots, "distractor", 
+                                 "_", i, ".pdf"), width = 8)
+      print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
+      dev.off()
     }
     for (ii in 1:nrow(itemplots)) {
       print(itemplot(teste, i, type = itemplots[ii, 1], 
                      main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
-      dev.copy2pdf(file = paste0(out.itemplots, itemplots[ii, 
-                                                          1], "_", i, ".pdf"))
+      pdf(file = paste0(out.itemplots, itemplots[ii, 
+                                                          1], "_", i, ".pdf"), width = 8)
+      print(itemplot(teste, i, type = itemplots[ii, 1], 
+                     main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
+      dev.off()
     }
   }
   

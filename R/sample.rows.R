@@ -26,6 +26,7 @@
 #' sample.rows(x = cars, size = 5)
 #' 
 #' @export sample.rows
+
 sample.rows <-
 function(x, size, replace = F, prob = NULL)
 {
