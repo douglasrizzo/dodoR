@@ -1,3 +1,5 @@
+#' @import mirt, latticeExtra
+#' 
 #' Enem 2012 Humanities Sciences Keys
 #' 
 #' The keys for the brazilian National High School Exam humanities sciences
