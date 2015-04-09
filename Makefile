@@ -25,7 +25,8 @@ updocs:
 	rm -rf ../html
 	mv html ..
 	git checkout gh-pages
-	mv ../html .
+	mv ../html/* .
+	rm -rf ../html
 	git add .
 	git commit -m "Atualização da documentação em $(DATE)"
 	git push origin gh-pages
