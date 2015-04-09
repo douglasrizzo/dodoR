@@ -93,20 +93,8 @@ saves item parameters and item fit statistics (like Zhs and X2) into
 to generate a PDF report, since it prints the summaries of all relevant
 variables during a run.
 }
-\details{
-%% ~~ If necessary, more details than the description above ~~
-}
-\note{
-%% ~~further notes~~
-}
 \author{
 Douglas De Rizzo Meneghetti
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \keyword{IRT}
 \keyword{report}

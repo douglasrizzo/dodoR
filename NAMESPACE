@@ -3,3 +3,5 @@
 export(irt.report)
 export(normalize.responses)
 export(sample.rows)
+import(latticeExtra)
+import(mirt)

@@ -14,11 +14,8 @@
 #' the vector being sampled.
 #' @return A \code{data.frame} containing \code{size} rows extracted of
 #' \code{x}.
-#' @note %% ~~further notes~~
 #' @author Douglas De Rizzo Meneghetti
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
-#' @references
-#' \url{http://stackoverflow.com/questions/8273313/random-rows-in-dataframe-in-r}
+#' @references \url{http://stackoverflow.com/questions/8273313/random-rows-in-dataframe-in-r}
 #' @keywords sample rows
 #' @examples
 #' 

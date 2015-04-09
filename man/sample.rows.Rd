@@ -29,9 +29,6 @@ using either with or without replacement
 It basically does the same as \code{sample}, but returns row samples instead
 of column samples.
 }
-\note{
-%% ~~further notes~~
-}
 \examples{
 ##Sample 5 random rows form the cars dataset
 sample.rows(x = cars, size = 5)
@@ -41,9 +38,6 @@ Douglas De Rizzo Meneghetti
 }
 \references{
 \url{http://stackoverflow.com/questions/8273313/random-rows-in-dataframe-in-r}
-}
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \keyword{rows}
 \keyword{sample}

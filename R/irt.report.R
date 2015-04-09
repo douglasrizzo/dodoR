@@ -6,9 +6,6 @@
 #' \code{csv} files; and can alternatively be used in conjunction with Sweave
 #' to generate a PDF report, since it prints the summaries of all relevant
 #' variables during a run.
-#' 
-#' %% ~~ If necessary, more details than the description above ~~
-#' 
 #' @param answers A \code{data.frame} containing examinees answers to items.
 #' Rows must represent examinees and columns represent items. If the
 #' \code{data.frame} is in binary format, \code{keys} is not required, but
@@ -60,12 +57,8 @@
 #' (SingleGroupClass-class), the same one returned by the `mirt-package`
 #' function `mirt`, in case additional processing is desired beyond the
 #' generation of plots and CSV files with parameters
-#' @note %% ~~further notes~~
 #' @author Douglas De Rizzo Meneghetti
-#' @seealso %% ~~objects to See Also as \code{\link{help}}, ~~~
-#' @references %% ~put references to the literature/web site here ~
 #' @keywords IRT report
-# @examples
 #' @export irt.report
 
 irt.report <-

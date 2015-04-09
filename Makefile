@@ -1,23 +1,31 @@
-NAME  = dodoR
-SHELL = bash
+PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
+PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 DATE = `date +'%y.%m.%d %H:%M:%S'`
 all: check build install clean
 install:
-	R CMD INSTALL .
+	cd ..;\
+	R CMD INSTALL $(PKGNAME)
 build:
-	R CMD build .
+	cd ..;\
+	R CMD build $(PKGNAME) && mv $(PKGNAME)_$(PKGVERS).tar.gz $(PKGNAME)
 check:
-	R CMD check .
+	cd ..;\
+	R CMD check $(PKGNAME) && mv $(PKGNAME).Rcheck $(PKGNAME)
 clean:
-	rm -r ..Rcheck dodoR_1.0.tar.gz
+	rm -rf $(PKGNAME)_$(PKGVERS).tar.gz $(PKGNAME).Rcheck
 docs:
 	Rscript -e "library('roxygen2');roxygenize('.')"
+	R CMD Rd2pdf --batch --title=$(PKGNAME) --output=$(PKGNAME).pdf --force .
 	make install
+	Rscript -e "library('knitr',quietly=TRUE);knit_rd('$(PKGNAME)')"
+	rm -rf html
+	mkdir html
+	mv *.html R.css html
+updocs: docs
+	mv html ..
 	git checkout gh-pages
-	Rscript -e "library('knitr',quietly=TRUE);knit_rd('$(NAME)')"
+	mv ../html .
 	git add .
 	git commit -m "Atualização da documentação em $(DATE)"
 	git push origin gh-pages
 	git checkout master
-	R CMD Rd2pdf --batch --title=dodoR --output=$(NAME).pdf --force .
-
