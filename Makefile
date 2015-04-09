@@ -22,6 +22,7 @@ docs:
 	mkdir html
 	mv *.html R.css html
 updocs: 
+	rm -rf ../html
 	mv html ..
 	git checkout gh-pages
 	mv ../html .
