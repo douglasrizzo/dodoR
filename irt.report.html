@@ -13,18 +13,16 @@
 <p>This function generates a full report of an IRT run of the <code>mirt</code>
 package. It plots all possible charts for the test and each of the items;
 saves item parameters and item fit statistics (like Zhs and X2) into
-<code>csv</code> files; and can alternatively be used in conjunction with Sweave
-to generate a PDF report, since it prints the summaries of all relevant
-variables during a run.
+<code>csv</code> files; and uses a knitr template to generate a PDF report.
 </p>
 
 
 <h3>Usage</h3>
 
 <pre>
-irt.report(answers, out, out.stats = NULL, out.itemplots = NULL,
-  out.testplots = NULL, out.densities = NULL, keys = NULL,
-  itemtype = "3PL", method = "EM", optimizer = "NR", verbose = F,
+irt.report(answers, out, keys = NULL, author = "",
+  title = "dodoR - Relatório", out.stats = NULL, out.itemplots = NULL,
+  out.testplots = NULL, method = "EM", optimizer = "NR", verbose = F,
   test_score = T, test_info = T, test_SE = T, test_infoSE = T,
   trace = T, info = T, se = T, score = T, infoSE = T, infotrace = T)
 </pre>
@@ -45,6 +43,19 @@ distractor analysis is not perfoermed.</p>
 <p>A directory to which all files will be saved. If the directory
 does not exist, it will be recursively created.</p>
 </td></tr>
+<tr valign="top"><td><code>keys</code></td>
+<td>
+<p>A vector containing the keys of the test, that is, the right
+answers for each item in the correct order.</p>
+</td></tr>
+<tr valign="top"><td><code>author</code></td>
+<td>
+<p>The author of the document (appears at the report cover)</p>
+</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+<p>The title of the document (appears at the report cover)</p>
+</td></tr>
 <tr valign="top"><td><code>out.stats</code></td>
 <td>
 <p>The directory to which CSV files will be saved. If the
@@ -62,24 +73,6 @@ NULL, it will be a subfolder of out.</p>
 <p>The directory to which test plots will be saved. If the
 directory does not exist, it will be recursively created. if out.testplots =
 NULL, it will be a subfolder of out.</p>
-</td></tr>
-<tr valign="top"><td><code>out.densities</code></td>
-<td>
-<p>The directory to which parameter density plots will be
-saved. If the directory does not exist, it will be recursively created. if
-out.densities = NULL, it will be a subfolder of out.</p>
-</td></tr>
-<tr valign="top"><td><code>keys</code></td>
-<td>
-<p>A vector containing the keys of the test, that is, the right
-answers for each item in the correct order.</p>
-</td></tr>
-<tr valign="top"><td><code>itemtype</code></td>
-<td>
-<p>Item types to be used during parameter estimation. This
-parameter is passed directly to <code>mirt</code>. Default is '3PL', the
-three-parameter logistic model. For more options, consult the <code>mirt</code>
-manual.</p>
 </td></tr>
 <tr valign="top"><td><code>method</code></td>
 <td>
