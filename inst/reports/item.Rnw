@@ -1,0 +1,29 @@
+\clearpage
+\section{Item \Sexpr{i}}
+
+<<tidy=FALSE>>=
+print(superpars[i])
+@
+
+<<tidy=FALSE,fig.height=4>>=
+pars.string = paste('a =', only.pars[i, 1],'; b =', only.pars[i, 2], '; c =', only.pars[i, 3])
+
+if(!is.null(nominal)) {
+  print(itemplot(nominal, i, type = "trace", main = paste0("Análise das alternativas do item ", i, '\nGabarito: P', keys[i])))
+        
+  pdf(file = paste0(out.itemplots, "distractor", "_", i, ".pdf"), width = 8)
+  print(itemplot(nominal, i, type = "trace", main = paste0("Análise das alternativas do item ", i, '\nGabarito: P', keys[i])))
+  dev.off()
+}
+
+for (ii in 1:nrow(itemplots)) {
+  if(itemplots[ii,3])
+    print(itemplot(teste, i, type = itemplots[ii, 1],
+                   main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
+  
+  pdf(file = paste0(out.itemplots, itemplots[ii, 1], "_", i, ".pdf"), width = 8)
+  print(itemplot(teste, i, type = itemplots[ii, 1],
+                 main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
+  dev.off()
+}
+@

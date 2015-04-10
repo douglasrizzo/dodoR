@@ -3,15 +3,17 @@
 #' This function generates a full report of an IRT run of the \code{mirt}
 #' package. It plots all possible charts for the test and each of the items;
 #' saves item parameters and item fit statistics (like Zhs and X2) into
-#' \code{csv} files; and can alternatively be used in conjunction with Sweave
-#' to generate a PDF report, since it prints the summaries of all relevant
-#' variables during a run.
+#' \code{csv} files; and uses a knitr template to generate a PDF report.
 #' @param answers A \code{data.frame} containing examinees answers to items.
 #' Rows must represent examinees and columns represent items. If the
 #' \code{data.frame} is in binary format, \code{keys} is not required, but
 #' distractor analysis is not perfoermed.
 #' @param out A directory to which all files will be saved. If the directory
 #' does not exist, it will be recursively created.
+#' @param keys A vector containing the keys of the test, that is, the right
+#' answers for each item in the correct order.
+#' @param author The author of the document (appears at the report cover)
+#' @param title The title of the document (appears at the report cover)
 #' @param out.stats The directory to which CSV files will be saved. If the
 #' directory does not exist, it will be recursively created. if out.stats =
 #' NULL, it will be a subfolder of out.
@@ -21,15 +23,6 @@
 #' @param out.testplots The directory to which test plots will be saved. If the
 #' directory does not exist, it will be recursively created. if out.testplots =
 #' NULL, it will be a subfolder of out.
-#' @param out.densities The directory to which parameter density plots will be
-#' saved. If the directory does not exist, it will be recursively created. if
-#' out.densities = NULL, it will be a subfolder of out.
-#' @param keys A vector containing the keys of the test, that is, the right
-#' answers for each item in the correct order.
-#' @param itemtype Item types to be used during parameter estimation. This
-#' parameter is passed directly to \code{mirt}. Default is '3PL', the
-#' three-parameter logistic model. For more options, consult the \code{mirt}
-#' manual.
 #' @param method Estimation method. This parameter is passed directly to
 #' \code{mirt}. Default is 'EM', the Expectation-Maximization algorithm. For
 #' more options, consult the \code{mirt} manual.
@@ -61,119 +54,13 @@
 #' @keywords IRT report
 #' @export irt.report
 
-irt.report <-
-function  (answers, out, out.stats = NULL, out.itemplots = NULL, 
-   out.testplots = NULL, out.densities = NULL, keys = NULL, 
-   itemtype = "3PL", method = "EM", optimizer = "NR", verbose = F, 
-   test_score = T, test_info = T, test_SE = T, test_infoSE = T, 
-   trace = T, info = T, se = T, score = T, infoSE = T, infotrace = T) 
+irt.report = function(answers, out, keys = NULL, author = '', title = 'dodoR - Relatório', out.stats = NULL, out.itemplots = NULL, 
+                      out.testplots = NULL,  method = "EM", optimizer = "NR", verbose = F, 
+                      test_score = T, test_info = T, test_SE = T, test_infoSE = T, 
+                      trace = T, info = T, se = T, score = T, infoSE = T, infotrace = T)
 {
-  if (is.null(out.stats)) 
-    out.stats = paste0(out, "stats/")
-  if (is.null(out.itemplots)) 
-    out.itemplots = paste0(out, "itemplots/")
-  if (is.null(out.testplots)) 
-    out.testplots = paste0(out, "testplots/")
-  if (is.null(out.densities)) 
-    out.densities = paste0(out, "densities/")
-  
-  dir.create(out.stats, showWarnings = FALSE, recursive = TRUE)
-  dir.create(out.itemplots, showWarnings = FALSE, recursive = TRUE)
-  dir.create(out.testplots, showWarnings = FALSE, recursive = TRUE)
-  dir.create(out.densities, showWarnings = FALSE, recursive = TRUE)
-  
-  teste = NULL
-  
-  if (is.null(keys)) {
-    teste = mirt(answers, model = 1, itemtype = itemtype, 
-                 SE = T, SE.type = "BL", method = method, optimizer = optimizer, 
-                 verbose = verbose)
-  }
-  else {
-    teste = mirt(key2binary(answers, keys), model = 1, itemtype = itemtype, 
-                 SE = T, SE.type = "BL", method = method, optimizer = optimizer, 
-                 verbose = verbose)
-    nominal = mirt(answers, model = 1, itemtype = "nominal", 
-                   verbose = F)
-  }
-  
-  print(teste)
-  summary(teste)
-  superpars = coef(teste, simplify = F)
-  pars = coef(teste, simplify = T)
-  only.pars = pars$items[,1:3]
-  
-  testplots = data.frame(c("test_score", "test_info", "test_SE", "test_infoSE"),
-                         c("Curva do teste", "Curva de informação do teste", "Curva de erro padrão do teste", "Curvas de informação/erro padrão do teste"),
-                         c("score", "info", "SE", "infoSE"),
-                         c(test_score, test_info, test_SE, test_infoSE), stringsAsFactors = F)
-  
-  for (i in 1:nrow(testplots)) {
-    if(testplots[i, 4])
-      print(plot(teste, type = testplots[i, 3], main = testplots[i, 2]))
-      
-    pdf(file = paste0(out.testplots, testplots[i, 1], ".pdf"), width = 8)
-    print(plot(teste, type = testplots[i, 3], main = testplots[i, 2]))
-    dev.off()
-  }
-  
-  print(plot(density(pars$items[, 1]), main = "Densidade de a", 
-             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  pdf(file = paste0(out.testplots, "a.pdf"), width = 8)
-  print(plot(density(pars$items[, 1]), main = "Densidade de a", 
-             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  dev.off()
-  
-  print(plot(density(pars$items[, 2]), main = "Densidade de b", 
-             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  pdf(file = paste0(out.testplots, "b.pdf"), width = 8)
-  print(plot(density(pars$items[, 2]), main = "Densidade de b", 
-             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  dev.off()
-  
-  print(plot(density(pars$items[, 3]), main = "Densidade de c", 
-             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  pdf(file = paste0(out.testplots, "c.pdf"), width = 8)
-  print(plot(density(pars$items[, 3]), main = "Densidade de c", 
-             ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
-  dev.off()
-  
-  print(pars)
-  
-  itemplots = data.frame(c("trace", "info","SE","score","infoSE", "infotrace"),
-                         c("Curva característica do item", "Curva de informação do item", "Erro padrão do item",  "Curva de qtd. de acertos do item", "Curvas de informação/erro padrão do item", "Curvas de informação/característica do item"),
-                         c(trace, info, se , score, infoSE, infotrace), stringsAsFactors = F)
-  
-  for (i in 1:ncol(answers)) {
-    
-    print(superpars[i])
-    pars.string = paste('a =', only.pars[i, 1],'; b =', only.pars[i, 2], '; c =', only.pars[i, 3])
-    
-    if (!is.null(keys)) {
-      print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
-      pdf(file = paste0(out.itemplots, "distractor",
-                                 "_", i, ".pdf"), width = 8)
-      print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
-      dev.off()
-    }
-    
-    for (ii in 1:nrow(itemplots)) {
-      if(itemplots[ii,3])
-        print(itemplot(teste, i, type = itemplots[ii, 1],
-                       main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
-      
-      pdf(file = paste0(out.itemplots, itemplots[ii, 1], "_", i, ".pdf"), width = 8)
-      print(itemplot(teste, i, type = itemplots[ii, 1],
-                     main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
-      dev.off()
-    }
-  }
-  
-  write.table(only.pars, file = paste0(out.stats, 
-                                               "parametros.csv"), sep = ",", row.names = F)
-  fits = itemfit(teste, X2 = T, method = "ML")
-  write.table(fits[, 2:8], file = paste0(out.stats, "medidas.csv"), 
-              sep = ",", row.names = F)
-  
-  return(teste)
+  dir.create(out, recursive = T, showWarnings = F)
+  knit2pdf(system.file('reports', 'report.Rnw', package = 'dodoR'), output = paste0(getwd(), '/report.tex'))
+  file.remove(paste0(out,'report.pdf'))
+  file.rename(from = paste0(getwd(), '/report.pdf'), to = paste0(out,'report.pdf'))
 }

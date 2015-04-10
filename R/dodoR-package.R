@@ -1,4 +1,4 @@
-#' @import mirt latticeExtra
+#' @import mirt latticeExtra knitr
 NULL
 
 #' Enem 2012 Humanities Sciences Keys

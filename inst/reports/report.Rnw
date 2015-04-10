@@ -4,37 +4,40 @@
 \usepackage[utf8]{inputenc}
 \usepackage[top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
 
-\author{\Sexpr{report.author}}
-\title{\Sexpr{report.title}}
+\author{\Sexpr{author}}
+\title{\Sexpr{title}}
 
 \begin{document}
 \maketitle
 \tableofcontents
-<<tidy=FALSE>>=
+<<tidy=FALSE,comment=NA>>=
 out.stats = paste0(out, "stats/")
 out.itemplots = paste0(out, "itemplots/")
 out.testplots = paste0(out, "testplots/")
-out.densities = paste0(out, "densities/")
-  
+
 dir.create(out.stats, showWarnings = FALSE, recursive = TRUE)
 dir.create(out.itemplots, showWarnings = FALSE, recursive = TRUE)
 dir.create(out.testplots, showWarnings = FALSE, recursive = TRUE)
-dir.create(out.densities, showWarnings = FALSE, recursive = TRUE)
   
 teste = NULL
+nominal = NULL
 
 if (is.null(keys)) {
-  teste = mirt(answers, model = 1, itemtype = itemtype, 
+  teste = mirt(answers, model = 1, itemtype = '3PL', 
                SE = T, SE.type = "BL", method = method, optimizer = optimizer, 
                verbose = verbose)
 } else {
-  teste = mirt(key2binary(answers, keys), model = 1, itemtype = itemtype, 
+  teste = mirt(key2binary(answers, keys), model = 1, itemtype = '3PL', 
                SE = T, SE.type = "BL", method = method, optimizer = optimizer, 
                verbose = verbose)
   nominal = mirt(answers, model = 1, itemtype = "nominal", 
                  verbose = F)
 }
-  
+@
+
+\chapter{Resumo do Teste}
+
+<<tidy=FALSE,comment=NA,fig.height=4>>=
 print(teste)
 summary(teste)
 superpars = coef(teste, simplify = F)
@@ -55,7 +58,10 @@ for (i in 1:nrow(testplots)) {
   print(plot(teste, type = testplots[i, 3], main = testplots[i, 2]))
   dev.off()
 }
+@
 
+\section{Parâmetros dos itens}
+<<tidy=FALSE,comment=NA>>=
 print(plot(density(pars$items[, 1]), main = "Densidade de a", 
            ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
 pdf(file = paste0(out.testplots, "a.pdf"), width = 8)
@@ -82,32 +88,18 @@ print(pars)
 itemplots = data.frame(c("trace", "info","SE","score","infoSE", "infotrace"),
                        c("Curva característica do item", "Curva de informação do item", "Erro padrão do item",  "Curva de qtd. de acertos do item", "Curvas de informação/erro padrão do item", "Curvas de informação/característica do item"),
                        c(trace, info, se , score, infoSE, infotrace), stringsAsFactors = F)
+@
 
+<<fig.height=4>>=
+knitr.itemchunks = NULL
 for (i in 1:ncol(answers)) {
-  
-  print(superpars[i])
-  pars.string = paste('a =', only.pars[i, 1],'; b =', only.pars[i, 2], '; c =', only.pars[i, 3])
-  
-  if (!is.null(keys)) {
-    print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
-    pdf(file = paste0(out.itemplots, "distractor",
-                               "_", i, ".pdf"), width = 8)
-    print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
-    dev.off()
-  }
-  
-  for (ii in 1:nrow(itemplots)) {
-    if(itemplots[ii,3])
-      print(itemplot(teste, i, type = itemplots[ii, 1],
-                     main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
-    
-    pdf(file = paste0(out.itemplots, itemplots[ii, 1], "_", i, ".pdf"), width = 8)
-    print(itemplot(teste, i, type = itemplots[ii, 1],
-                   main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
-    dev.off()
-  }
+    knitr.itemchunks = c(knitr.itemchunks, knit_child('item.Rnw'))
 }
+@
 
+\Sexpr{paste(out, collapse = '\n')}
+
+<<>>==
 write.table(only.pars, file = paste0(out.stats, 
                                              "parametros.csv"), sep = ",", row.names = F)
 fits = itemfit(teste, X2 = T, method = "ML")

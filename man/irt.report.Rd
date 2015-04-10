@@ -4,9 +4,9 @@
 \alias{irt.report}
 \title{Generate full IRT report based on \code{mirt} package}
 \usage{
-irt.report(answers, out, out.stats = NULL, out.itemplots = NULL,
-  out.testplots = NULL, out.densities = NULL, keys = NULL,
-  itemtype = "3PL", method = "EM", optimizer = "NR", verbose = F,
+irt.report(answers, out, keys = NULL, author = "",
+  title = "dodoR - Relatório", out.stats = NULL, out.itemplots = NULL,
+  out.testplots = NULL, method = "EM", optimizer = "NR", verbose = F,
   test_score = T, test_info = T, test_SE = T, test_infoSE = T,
   trace = T, info = T, se = T, score = T, infoSE = T, infotrace = T)
 }
@@ -19,6 +19,13 @@ distractor analysis is not perfoermed.}
 \item{out}{A directory to which all files will be saved. If the directory
 does not exist, it will be recursively created.}
 
+\item{keys}{A vector containing the keys of the test, that is, the right
+answers for each item in the correct order.}
+
+\item{author}{The author of the document (appears at the report cover)}
+
+\item{title}{The title of the document (appears at the report cover)}
+
 \item{out.stats}{The directory to which CSV files will be saved. If the
 directory does not exist, it will be recursively created. if out.stats =
 NULL, it will be a subfolder of out.}
@@ -30,18 +37,6 @@ NULL, it will be a subfolder of out.}
 \item{out.testplots}{The directory to which test plots will be saved. If the
 directory does not exist, it will be recursively created. if out.testplots =
 NULL, it will be a subfolder of out.}
-
-\item{out.densities}{The directory to which parameter density plots will be
-saved. If the directory does not exist, it will be recursively created. if
-out.densities = NULL, it will be a subfolder of out.}
-
-\item{keys}{A vector containing the keys of the test, that is, the right
-answers for each item in the correct order.}
-
-\item{itemtype}{Item types to be used during parameter estimation. This
-parameter is passed directly to \code{mirt}. Default is '3PL', the
-three-parameter logistic model. For more options, consult the \code{mirt}
-manual.}
 
 \item{method}{Estimation method. This parameter is passed directly to
 \code{mirt}. Default is 'EM', the Expectation-Maximization algorithm. For
@@ -89,9 +84,7 @@ generation of plots and CSV files with parameters
 This function generates a full report of an IRT run of the \code{mirt}
 package. It plots all possible charts for the test and each of the items;
 saves item parameters and item fit statistics (like Zhs and X2) into
-\code{csv} files; and can alternatively be used in conjunction with Sweave
-to generate a PDF report, since it prints the summaries of all relevant
-variables during a run.
+\code{csv} files; and uses a knitr template to generate a PDF report.
 }
 \author{
 Douglas De Rizzo Meneghetti
