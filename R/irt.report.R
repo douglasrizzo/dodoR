@@ -103,24 +103,17 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
   pars = coef(teste, simplify = T)
   only.pars = pars$items[,1:3]
   
-  testplots = c()
-  if (test_score) 
-    testplots = rbind(testplots, c("test_score", "Curva do teste", 
-                                   "score"))
-  if (test_info) 
-    testplots = rbind(testplots, c("test_info", "Curva de informação do teste", 
-                                   "info"))
-  if (test_SE) 
-    testplots = rbind(testplots, c("test_SE", "Curva de erro padrão do teste", 
-                                   "SE"))
-  if (test_infoSE) 
-    testplots = rbind(testplots, c("test_infoSE", "Curvas de informação/erro padrão do teste", 
-                                   "infoSE"))
+  testplots = data.frame(c("test_score", "test_info", "test_SE", "test_infoSE"),
+                         c("Curva do teste", "Curva de informação do teste", "Curva de erro padrão do teste", "Curvas de informação/erro padrão do teste"),
+                         c("score", "info", "SE", "infoSE"),
+                         c(test_score, test_info, test_SE, test_infoSE), stringsAsFactors = F)
+  
   for (i in 1:nrow(testplots)) {
-    pdf(file = paste0(out.testplots, testplots[i, 
-                                                        1], ".pdf"), width = 8)
-    print(plot(teste, type = testplots[i, 3], main = testplots[i, 
-                                                               2]))
+    if(testplots[i, 4])
+      print(plot(teste, type = testplots[i, 3], main = testplots[i, 2]))
+      
+    pdf(file = paste0(out.testplots, testplots[i, 1], ".pdf"), width = 8)
+    print(plot(teste, type = testplots[i, 3], main = testplots[i, 2]))
     dev.off()
   }
   
@@ -147,37 +140,30 @@ function  (answers, out, out.stats = NULL, out.itemplots = NULL,
   
   print(pars)
   
-  itemplots = c()
-  
-  if (trace) 
-    itemplots = rbind(itemplots, c("trace", "Curva característica do item"))
-  if (info) 
-    itemplots = rbind(itemplots, c("info", "Curva de informação do item"))
-  if (se) 
-    itemplots = rbind(itemplots, c("SE", "Erro padrão do item"))
-  if (score) 
-    itemplots = rbind(itemplots, c("score", "Curva de qtd. de acertos do item"))
-  if (infoSE) 
-    itemplots = rbind(itemplots, c("infoSE", "Curvas de informação/erro padrão do item"))
-  if (infotrace) 
-    itemplots = rbind(itemplots, c("infotrace", "Curvas de informação/característica do item"))
+  itemplots = data.frame(c("trace", "info","SE","score","infoSE", "infotrace"),
+                         c("Curva característica do item", "Curva de informação do item", "Erro padrão do item",  "Curva de qtd. de acertos do item", "Curvas de informação/erro padrão do item", "Curvas de informação/característica do item"),
+                         c(trace, info, se , score, infoSE, infotrace), stringsAsFactors = F)
   
   for (i in 1:ncol(answers)) {
+    
     print(superpars[i])
     pars.string = paste('a =', only.pars[i, 1],'; b =', only.pars[i, 2], '; c =', only.pars[i, 3])
+    
     if (!is.null(keys)) {
       print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
-      pdf(file = paste0(out.itemplots, "distractor", 
+      pdf(file = paste0(out.itemplots, "distractor",
                                  "_", i, ".pdf"), width = 8)
       print(itemplot(nominal, i, type = "trace", main = paste("Análise das alternativas do item", i, '\nGabarito: P', keys[i])))
       dev.off()
     }
+    
     for (ii in 1:nrow(itemplots)) {
-      print(itemplot(teste, i, type = itemplots[ii, 1], 
-                     main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
-      pdf(file = paste0(out.itemplots, itemplots[ii, 
-                                                          1], "_", i, ".pdf"), width = 8)
-      print(itemplot(teste, i, type = itemplots[ii, 1], 
+      if(itemplots[ii,3])
+        print(itemplot(teste, i, type = itemplots[ii, 1],
+                       main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
+      
+      pdf(file = paste0(out.itemplots, itemplots[ii, 1], "_", i, ".pdf"), width = 8)
+      print(itemplot(teste, i, type = itemplots[ii, 1],
                      main = paste(itemplots[ii, 2], "-", i, '\n', pars.string )))
       dev.off()
     }
