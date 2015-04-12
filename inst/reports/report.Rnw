@@ -11,9 +11,13 @@
 \maketitle
 \tableofcontents
 <<tidy=FALSE,comment=NA>>=
-out.stats = paste0(out, "stats/")
-out.itemplots = paste0(out, "itemplots/")
-out.testplots = paste0(out, "testplots/")
+
+if(is.null(out.stats))
+  out.stats = paste0(out, "stats/")
+if(is.null(out.itemplots))
+  out.itemplots = paste0(out, "itemplots/")
+if(is.null(out.testplots))
+  out.testplots = paste0(out, "testplots/")
 
 dir.create(out.stats, showWarnings = FALSE, recursive = TRUE)
 dir.create(out.itemplots, showWarnings = FALSE, recursive = TRUE)
@@ -37,7 +41,7 @@ if (is.null(keys)) {
 
 \chapter{Resumo do Teste}
 
-<<tidy=FALSE,comment=NA,fig.height=4>>=
+<<tidy=FALSE,comment=NA,fig.height=4.5>>=
 print(teste)
 summary(teste)
 superpars = coef(teste, simplify = F)
@@ -61,7 +65,7 @@ for (i in 1:nrow(testplots)) {
 @
 
 \section{Parâmetros dos itens}
-<<tidy=FALSE,comment=NA>>=
+<<tidy=FALSE,comment=NA,fig.height=4.5>>=
 print(plot(density(pars$items[, 1]), main = "Densidade de a", 
            ylab = "Densidade", xlab = paste("N =", dim(pars$items)[1])))
 pdf(file = paste0(out.testplots, "a.pdf"), width = 8)
@@ -90,7 +94,13 @@ itemplots = data.frame(c("trace", "info","SE","score","infoSE", "infotrace"),
                        c(trace, info, se , score, infoSE, infotrace), stringsAsFactors = F)
 @
 
-<<fig.height=4>>=
+<<fig.height=4.5>>=
+knitr.itemchunks = knit_child('nominal.Rnw')
+@
+
+\Sexpr{paste(knitr.itemchunks, collapse = '\n')}
+
+<<fig.height=4.5>>=
 knitr.itemchunks = NULL
 for (i in 1:ncol(answers)) {
     knitr.itemchunks = c(knitr.itemchunks, knit_child('item.Rnw'))

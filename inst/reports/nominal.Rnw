@@ -1,0 +1,14 @@
+\clearpage
+\section{Análise dos distratores}
+
+<<tidy=FALSE,fig.height=4,comment=NA>>=
+if(!is.null(nominal)) {
+  for (i in 1:ncol(answers)) {
+    print(itemplot(nominal, i, type = "trace", main = paste0("Análise das alternativas do item ", i, '\nGabarito: P', keys[i])))
+          
+    pdf(file = paste0(out.itemplots, "distractor", "_", i, ".pdf"), width = 8)
+    print(itemplot(nominal, i, type = "trace", main = paste0("Análise das alternativas do item ", i, '\nGabarito: P', keys[i])))
+    dev.off()
+  }
+}
+@
