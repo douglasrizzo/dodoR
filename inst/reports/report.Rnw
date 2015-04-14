@@ -44,9 +44,11 @@ if (is.null(keys)) {
 <<tidy=FALSE,comment=NA,fig.height=4.5>>=
 print(teste)
 summary(teste)
-superpars = coef(teste, simplify = F)
-pars = coef(teste, simplify = T)
+superpars = coef(teste, simplify = F, digits = 9)
+pars = coef(teste, simplify = T, digits = 9)
 only.pars = pars$items[,1:3]
+
+colnames(only.pars) = c('a','b','c')
   
 testplots = data.frame(c("test_score", "test_info", "test_SE", "test_infoSE"),
                        c("Curva do teste", "Curva de informação do teste", "Curva de erro padrão do teste", "Curvas de informação/erro padrão do teste"),
