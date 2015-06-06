@@ -14,6 +14,9 @@
 #' answers for each item in the correct order.
 #' @param author The author of the document (appears at the report cover)
 #' @param title The title of the document (appears at the report cover)
+#' @param fscores Whether the function should calculate examinees' scores. If
+#' True, results are made available in a file called 'scores.csv' inside the
+#' out.stats directory.
 #' @param out.stats The directory to which CSV files will be saved. If the
 #' directory does not exist, it will be recursively created. if out.stats =
 #' NULL, it will be a subfolder of out.
@@ -54,13 +57,17 @@
 #' @keywords IRT report
 #' @export irt.report
 
-irt.report = function(answers, out, keys = NULL, author = '', title = 'dodoR - Relatório', out.stats = NULL, out.itemplots = NULL, 
-                      out.testplots = NULL,  method = "EM", optimizer = "NR", verbose = F, 
-                      test_score = T, test_info = T, test_SE = T, test_infoSE = T, 
+irt.report = function(answers, out, keys = NULL, author = '', title = 'dodoR - Relatório',
+                      fscores = T, out.stats = NULL, out.itemplots = NULL,
+                      out.testplots = NULL, method = "EM", optimizer = "NR", verbose = F,
+                      test_score = T, test_info = T, test_SE = T, test_infoSE = T,
                       trace = T, info = T, se = T, score = T, infoSE = T, infotrace = T)
 {
   dir.create(out, recursive = T, showWarnings = F)
-  knit2pdf(system.file('reports', 'report.Rnw', package = 'dodoR'), output = paste0(getwd(), '/report.tex'))
-  file.remove(paste0(out,'report.pdf'))
-  file.rename(from = paste0(getwd(), '/report.pdf'), to = paste0(out,'report.pdf'))
+  wd = getwd()
+  setwd(tempdir())
+  opts_knit$set(root.dir = tempdir())
+  knit2pdf(system.file('reports', 'report.Rnw', package = 'dodoR'), output = paste0(tempdir(), '/report.tex'))
+  file.rename(paste0(tempdir(), '/report.pdf'), paste0(out, 'report.pdf'))
+  setwd(wd)
 }

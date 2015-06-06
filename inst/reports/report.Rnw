@@ -112,11 +112,14 @@ for (i in 1:ncol(answers)) {
 \Sexpr{paste(out, collapse = '\n')}
 
 <<>>==
-write.table(only.pars, file = paste0(out.stats, 
-                                             "parametros.csv"), sep = ",", row.names = F)
+write.table(only.pars, file = paste0(out.stats, "parametros.csv"), sep = ",", row.names = F)
 fits = itemfit(teste, X2 = T, method = "ML")
 write.table(fits[, 2:8], file = paste0(out.stats, "medidas.csv"), 
             sep = ",", row.names = F)
+
+if(fscores)
+  scores = fscores(teste, full.scores = T)
+  write.table(scores, file = paste0(out.stats, "scores.csv"), sep = ",", row.names = T)
 @
 
 \end{document}
