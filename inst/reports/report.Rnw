@@ -119,6 +119,7 @@ write.table(fits[, 2:8], file = paste0(out.stats, "medidas.csv"),
 
 if(fscores)
   scores = fscores(teste, full.scores = T)
+  rownames(scores) = rownames(answers)
   write.table(scores, file = paste0(out.stats, "scores.csv"), sep = ",", row.names = T)
 @
 
