@@ -19,13 +19,8 @@
 
 normalize.responses = function(x, y){
   for(i in 1:ncol(x)){
-    keys = sort(t(unique(x[i])))
-    new.keys = c(1:length(keys))
-    
-    for (ii in 1:length(keys)){
-      x[i][x[i] == keys[ii]] = new.keys[ii]      
-      if(y[i] == keys[ii]) y[i] = new.keys[ii]
-    }
+    y[i] = y[i] - min(x[i], na.rm = T)
+    x[i] = x[i] - min(x[i], na.rm = T)
   }
   
   return(list(answers = x, keys = y))
