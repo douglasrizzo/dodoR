@@ -67,6 +67,7 @@ irt.report = function(answers, out, keys = NULL, author = '', title = 'dodoR - R
   wd = getwd()
   setwd(tempdir())
   opts_knit$set(root.dir = tempdir())
+  opts_knit$set(progress=FALSE)
   knit2pdf(system.file('reports', 'report.Rnw', package = 'dodoR'), output = paste0(tempdir(), '/report.tex'))
   file.rename(paste0(tempdir(), '/report.pdf'), paste0(out, 'report.pdf'))
   setwd(wd)
